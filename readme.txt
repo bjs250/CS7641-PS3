@@ -9,3 +9,7 @@ https://www.machinecurve.com/index.php/2020/04/16/how-to-perform-k-means-cluster
 
 PCA
 https://towardsdatascience.com/pca-using-python-scikit-learn-e653f8989e60
+
+ICA
+https://github.com/akcarsten/Independent_Component_Analysis
+https://stats.stackexchange.com/questions/375124/what-does-ica-return
