@@ -2,7 +2,6 @@ from sklearn.decomposition import FastICA
 from sklearn.preprocessing import StandardScaler
 
 import matplotlib.pyplot as plt
-import pandas as pd
 import numpy as np
 
 import preprocessing
@@ -32,7 +31,7 @@ for n in X:
     Y.append(kurt(S_)[0])
 
 plt.xticks(X)
-plt.plot(X,Y)
+plt.plot(X, Y)
 plt.title("ICA, dataset " + str(dataset))
 plt.xlabel("Number of Components")
 plt.ylabel("|Kurtosis|")

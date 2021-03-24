@@ -13,3 +13,5 @@ https://towardsdatascience.com/pca-using-python-scikit-learn-e653f8989e60
 ICA
 https://github.com/akcarsten/Independent_Component_Analysis
 https://stats.stackexchange.com/questions/375124/what-does-ica-return
+
+https://arxiv.org/pdf/0909.3052.pdf
