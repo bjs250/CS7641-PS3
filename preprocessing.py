@@ -48,7 +48,9 @@ def preprocess(dataset):
         y = df.loc[:, df.columns == "quality"].apply(lambda x: x >= 6)
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=0)
 
-    return (X_train, y_train, X_test, y_test)
+    X = pd.concat([X_train, X_test], axis=0).reset_index()
+    y = pd.concat([y_train, y_test], axis=0).reset_index()
+    return (X, y)
 
 if __name__ == '__main__':
     preprocess(2)

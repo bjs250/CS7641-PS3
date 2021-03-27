@@ -37,5 +37,3 @@ plt.xlabel("Number of Components")
 plt.ylabel("|Kurtosis|")
 plt.grid(b=True, which="major")
 plt.show()
-
-

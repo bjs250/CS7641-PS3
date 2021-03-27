@@ -7,10 +7,10 @@ import matplotlib.pyplot as plt
 import preprocessing
 dataset = 2
 
-X_train, y_train, X_test, y_test = preprocessing.preprocess(dataset)
-X_train = StandardScaler().fit_transform(X_train)
+X, y = preprocessing.preprocess(dataset)
+X_train = StandardScaler().fit_transform(X)
 
-X = range(2, 14)
+X = range(2, 13)
 Y = []
 for n in X:
     model = GaussianRandomProjection(n_components=n)

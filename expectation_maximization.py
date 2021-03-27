@@ -1,52 +1,39 @@
 import matplotlib.pyplot as plt
 from sklearn import mixture
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import homogeneity_completeness_v_measure
+import collections
 
 import numpy as np
-import itertools
-
 import preprocessing
-dataset = 2
 
-X_train, y_train, X_test, y_test = preprocessing.preprocess(dataset)
+dataset = 1
 
-lowest_bic = np.infty
-bic = []
-n_components_range = range(2, 15)
-cv_types = ['spherical', 'tied', 'diag', 'full']
+X, y = preprocessing.preprocess(dataset)
+X = StandardScaler().fit_transform(X)
 
-for cv_type in cv_types:
-    for n_components in n_components_range:
+# Generate plot
+if False:
+    n_components = np.arange(1, 10)
+    models = [mixture.GaussianMixture(n, covariance_type='full', random_state=0).fit(X)
+              for n in n_components]
 
-        # Fit a Gaussian mixture with EM
-        gmm = mixture.GaussianMixture(n_components=n_components,
-                                      covariance_type=cv_type)
-        gmm.fit(X_train)
-        bic.append(gmm.bic(X_train))
-        if bic[-1] < lowest_bic:
-            lowest_bic = bic[-1]
-            best_gmm = gmm
+    plt.plot(n_components, [m.bic(X) for m in models], label='BIC')
+    plt.legend(loc='best')
+    plt.xlabel('n_components')
+    plt.ylabel('BIC')
+    plt.title('EM, dataset ' + str(dataset))
+    plt.axvline(x=5, color='r', linestyle='-')
+    plt.xticks(n_components)
+    plt.grid()
+    plt.show()
 
-bic = np.array(bic)
-color_iter = itertools.cycle(['navy', 'turquoise', 'cornflowerblue',
-                              'darkorange'])
-clf = best_gmm
-bars = []
-
-# Plot the BIC scores
-plt.figure(figsize=(8, 6))
-for i, (cv_type, color) in enumerate(zip(cv_types, color_iter)):
-    xpos = np.array(n_components_range) + .2 * (i - 2)
-    bars.append(plt.bar(xpos, bic[i * len(n_components_range):
-                                  (i + 1) * len(n_components_range)],
-                        width=.2, color=color))
-plt.xticks(n_components_range)
-plt.ylim([bic.min() * 1.01 - .01 * bic.max(), bic.max()])
-plt.title('BIC score per model, Dataset ' + str(dataset))
-xpos = np.mod(bic.argmin(), len(n_components_range)) + .65 +\
-    .2 * np.floor(bic.argmin() / len(n_components_range))
-plt.text(xpos, bic.min() * 0.97 + .03 * bic.max(), '*', fontsize=14)
-plt.xlabel('Number of components')
-plt.ylabel('BIC')
-plt.legend([b[0] for b in bars], cv_types)
-
-plt.show()
+if True:
+    n = 6
+    model = mixture.GaussianMixture(n, covariance_type='full', random_state=0)
+    model.fit(X)
+    y_pred = model.predict(X)
+    dist = collections.Counter(y_pred)
+    for v in dist.values():
+        print(v/y_pred.size)
+    print(homogeneity_completeness_v_measure(y.iloc[:, 1], y_pred))
