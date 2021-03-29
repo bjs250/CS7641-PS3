@@ -1,6 +1,7 @@
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
 
 data_headers_1 = [
 "age",
@@ -19,6 +20,27 @@ data_headers_1 = [
 "native-country",
 "result"
 ]
+
+def preprocess_NN():
+
+    TRAIN_DATA_FILENAME = "data/adult-train.csv"
+    TEST_DATA_FILENAME = "data/adult-test.csv"
+    feature_columns = data_headers_1[0:-1]
+    label_column = data_headers_1[-1]
+
+    df_train = pd.read_csv(TRAIN_DATA_FILENAME, sep=',', names=data_headers_1)
+    df_test = pd.read_csv(TEST_DATA_FILENAME, sep=',', names=data_headers_1)
+
+    # Fix categorical data
+    df_train = df_train.apply(LabelEncoder().fit_transform)
+    df_test = df_test.apply(LabelEncoder().fit_transform)
+
+    X_train = df_train[feature_columns]
+    y_train = df_train[label_column]
+    X_test = df_test[feature_columns]
+    y_test = df_test[label_column]
+
+    return StandardScaler().fit_transform(X_train), y_train, StandardScaler().fit_transform(X_test), y_test
 
 def preprocess(dataset):
     

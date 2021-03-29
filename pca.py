@@ -2,6 +2,8 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
 import numpy as np
+from sklearn.metrics import mean_squared_error
+
 import pandas as pd
 
 import preprocessing
@@ -74,7 +76,7 @@ if False:
     plt.show()
 
 # Optimal
-if True:
+if False:
     mean_vec = np.mean(X, axis=0)
     cov_mat = (X - mean_vec).T.dot((X - mean_vec)) / (X.shape[0] - 1)
     print('Covariance matrix \n%s' % cov_mat)
@@ -87,3 +89,12 @@ if True:
     pca.fit(X_train)
     print(pca.explained_variance_)
     print(pca.explained_variance_ratio_)
+
+# Reconstruction Error
+if True:
+    pca = PCA(n_components=0.95)
+    pca.fit(X_train)
+    reduced = pca.transform(X_train)
+    X_reconstructed = reduced.dot(np.linalg.pinv(pca.components_.T))
+    MSE = mean_squared_error(X_train, X_reconstructed)
+    print(MSE)

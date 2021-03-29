@@ -1,7 +1,5 @@
 
 
-
-
 References
 
 V-Measure
@@ -26,5 +24,13 @@ ICA
 https://github.com/akcarsten/Independent_Component_Analysis
 https://stats.stackexchange.com/questions/375124/what-does-ica-return
 https://www.macroption.com/kurtosis-values/#:~:text=Kurtosis%20can%20reach%20values%20from%201%20to%20positive%20infinite.&text=A%20distribution%20that%20is%20more,more%20peaked%20and%20fatter%20tails).&text=Such%20distribution%20is%20called%20platykurtic%20or%20platykurtotic.
-
 https://arxiv.org/pdf/0909.3052.pdf
+
+Randomized Projections
+N/A
+
+FA
+https://notebook.community/aborgher/Main-useful-functions-for-ML/ML/Dimensionality_reduction
+
+Clustering with DR
+https://stats.stackexchange.com/questions/232500/how-do-i-know-my-k-means-clustering-algorithm-is-suffering-from-the-curse-of-dim
