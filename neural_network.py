@@ -13,7 +13,9 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import classification_report, confusion_matrix, precision_recall_fscore_support
 from sklearn.decomposition import FastICA
 from sklearn.random_projection import GaussianRandomProjection
+from sklearn.cluster import KMeans
 from sklearn import cluster
+from sklearn import mixture
 
 def get_best_parameters(X_train, y_train, path):
 
@@ -87,6 +89,16 @@ def fa(X, m):
     model.fit(X)
     return model.transform(X)
 
+def kmeans(X, n):
+    model = KMeans(init='k-means++', n_clusters=n)
+    model.fit(X)
+    return model.fit_transform(X)
+
+def EM(X, n):
+    model = mixture.GaussianMixture(n, covariance_type='full', random_state=0)
+    model.fit(X)
+    return model.sample(X.shape[0])[0]
+
 if __name__ == '__main__':
 
     X_train, y_train, X_test, y_test = preprocessing.preprocess_NN()
@@ -138,7 +150,7 @@ if __name__ == '__main__':
         evaluate(X_train_rp, y_train, X_test_rp, y_test, parameters)
 
     # FA
-    if True:
+    if False:
         path = 'params/FA.obj'
         X_train_fa = rp(X_train, 5)
         if False:
@@ -150,5 +162,25 @@ if __name__ == '__main__':
         evaluate(X_train_fa, y_train, X_test_fa, y_test, parameters)
 
     # K-means clustering
+    if False:
+        path = 'params/Kmeans.obj'
+        X_train_kmeans = kmeans(X_train, 6)
+        if False:
+            parameters = get_best_parameters(X_train_kmeans, y_train, path)
+        filehandler = open(path, 'rb')
+        parameters = pickle.load(filehandler)
+        print(parameters)
+        X_test_kmeans = kmeans(X_test, 6)
+        evaluate(X_train_kmeans, y_train, X_test_kmeans, y_test, parameters)
 
     # EM
+    if True:
+        path = 'params/EM.obj'
+        X_train_EM = EM(X_train, 6)
+        if True:
+            parameters = get_best_parameters(X_train_EM, y_train, path)
+        filehandler = open(path, 'rb')
+        parameters = pickle.load(filehandler)
+        print(parameters)
+        X_test_EM = EM(X_test, 6)
+        evaluate(X_train_EM, y_train, X_test_EM, y_test, parameters)
