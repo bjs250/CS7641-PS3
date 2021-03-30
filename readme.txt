@@ -1,6 +1,19 @@
+Hello kind grader, code for this project can be found here: https://github.com/bjs250/CS7641-PS3
 
+It's written to be compatible with Python Version 3.8.0, and you can install the libraries to run it in your virtual
+environment from reqs.txt
 
-References
+The code is quite disorganized. Each method has its own file (e.g. pca.py), and within the file, functionality is controlled by boolean switches.
+
+The data directory contains the datasets used for this analysis
+The figures directory contains some of the figures used throughout the report
+The params directory contains pickled data structures for the NN tuning parameters
+
+part3.py contains an extensive set of switches used for generating the results of each of the 16 fold experiments.
+
+The following resources were used for building the code and/or intuition for the experiments run in this project
+
+References:
 
 V-Measure
 https://www.geeksforgeeks.org/ml-v-measure-for-evaluating-clustering-performance/
@@ -25,9 +38,6 @@ https://github.com/akcarsten/Independent_Component_Analysis
 https://stats.stackexchange.com/questions/375124/what-does-ica-return
 https://www.macroption.com/kurtosis-values/#:~:text=Kurtosis%20can%20reach%20values%20from%201%20to%20positive%20infinite.&text=A%20distribution%20that%20is%20more,more%20peaked%20and%20fatter%20tails).&text=Such%20distribution%20is%20called%20platykurtic%20or%20platykurtotic.
 https://arxiv.org/pdf/0909.3052.pdf
-
-Randomized Projections
-N/A
 
 FA
 https://notebook.community/aborgher/Main-useful-functions-for-ML/ML/Dimensionality_reduction
